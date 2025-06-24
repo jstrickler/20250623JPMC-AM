@@ -1,6 +1,7 @@
 import sys
 from datetime import date
 import yaml
+
 try:
     from yaml import CDumper as Dumper  # faster!
 except ImportError:

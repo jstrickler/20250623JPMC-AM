@@ -1,8 +1,6 @@
 import yaml
-try:
-    from yaml import CLoader as Loader  # faster!
-except ImportError:
-    from yaml import Loader
+from yaml import Loader
+from pprint import pprint
 
 PLANET_SECTIONS = "inner outer plutoid".split()
 
@@ -18,5 +16,6 @@ for section in PLANET_SECTIONS:
         for moon in planet['moons']:
             print(f"    {moon}")
 
-
+print("-" * 60)
+pprint(solar_data, sort_dicts=False)
 
