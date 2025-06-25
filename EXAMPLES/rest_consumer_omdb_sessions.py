@@ -1,5 +1,6 @@
 import requests
 from pprint import pprint
+from functools import lru_cache
 
 with open('omdbapikey.txt') as api_in:
     OMDB_API_KEY = api_in.read().rstrip()
@@ -22,7 +23,7 @@ def main():
         for movie_title in MOVIE_TITLES:
             params = {'t': movie_title}
             response = session.get(OMDB_URL, params=params)
-            if response.status_code == requests.codes.OK:
+            if response.ok:
                 raw_data = response.json()
                 print(f"raw_data['Title']: {raw_data['Title']}")
                 print(f"raw_data['Director']: {raw_data['Director']}")

@@ -10,6 +10,7 @@ class TrimmedFile:
     def __next__(self):  # next() returns the next value of the iterator
         line = self._file_in.readline()
         if line == '':
+            self._file_in.close()
             raise StopIteration  # Raise StopIteration when there are no more values to generate
         else:
             return line.rstrip('\n\r')  # The actual work of this iterator -- remove the end-of-line char(s)

@@ -1,3 +1,4 @@
+from functools import wraps
 import logging
 
 logging.basicConfig(
@@ -8,15 +9,16 @@ logging.basicConfig(
 )
 
 def log_timestamp(func):
-    def _wrapper():
+    @wraps(func)
+    def _wrapper(*args, **kwargs):
         logging.info(func.__name__)
-        result = func()
+        result = func(*args, **kwargs)
         return result
     return _wrapper
 
 @log_timestamp
-def spam():
-    print("Hello from spam()")
+def spam(count):
+    print(f"Hello from spam() {count}")
     return "abc"
 # spam = log_timestamp(spam) 
 
@@ -25,6 +27,6 @@ def ham():
     return "def"
 ham = log_timestamp(ham)
 
-spam()
+spam(27)
 ham()
-
+print(spam.__name__, ham.__name__)

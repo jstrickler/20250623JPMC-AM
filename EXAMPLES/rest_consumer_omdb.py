@@ -21,7 +21,10 @@ def main():
         print('-' * 60)
 
         print("raw DATA:")
-        pprint(response.json())
+        pprint(response.json(), sort_dicts=False)
+        print("raw JSON:")
+        print(response.text)
+        print()
     else:
         print(f"response.status_code: {response.status_code}")
 
