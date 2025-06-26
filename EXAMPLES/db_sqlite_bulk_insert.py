@@ -73,16 +73,15 @@ def populate_database(conn, cursor):
     with open(DATA_FILE) as file_in:
         fruit_data = csv.reader(file_in, quoting=csv.QUOTE_NONNUMERIC)
 
-        for row in fruit_data:
-            try:
-                # add a row to the table
-                cursor.execute(SQL_INSERT_ROW, row) 
-            except sqlite3.DatabaseError as err:
-                print(err)
-                conn.rollback()
-            else:
-                # commit the inserts; without this, no data would be saved
-                conn.commit()  
+            # add a row to the table
+        try:
+            cursor.executemany(SQL_INSERT_ROW, fruit_data) 
+        except sqlite3.DatabaseError as err:
+            print(err)
+            conn.rollback()
+        else:
+            # commit the inserts; without this, no data would be saved
+            conn.commit()  
 
 def read_database(cursor):
     cursor.execute(SQL_SELECT_ALL)
