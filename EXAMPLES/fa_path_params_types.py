@@ -1,3 +1,4 @@
+from uuid import uuid4, UUID
 from fastapi import FastAPI
 
 app = FastAPI()
